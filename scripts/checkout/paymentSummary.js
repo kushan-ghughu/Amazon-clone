@@ -18,7 +18,7 @@ export function renderPaymentSummary() {
   const totalBeforeTax = productsPrice + shippingPrice;
   const totalAfterTax = totalBeforeTax * 0.1;
   const total = totalBeforeTax + totalAfterTax;
-  //calculate the length
+  let cartQuantity=updateQuantity();
 
   const paymentSummaryHTML = `
     <div class="payment-summary-title">
@@ -26,7 +26,7 @@ export function renderPaymentSummary() {
           </div>
 
           <div class="payment-summary-row">
-            <div class="js-items >Items ( ):</div>
+            <div> Items (${cartQuantity} ):</div>
             <div class="payment-summary-money">$${formatCurrency(productsPrice)}</div>
           </div>
 
@@ -53,9 +53,6 @@ export function renderPaymentSummary() {
             Place your order
         </button>
   `;
-
   document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
-  let cartQuantity=updateQuantity()
-  document.querySelector(".js-items").innerHTML = `Items (${cartQuantity}): `;
 }
 
