@@ -6,6 +6,11 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 import { formatCurrency } from "../utils/money.js";
 
 export function renderOrderSummary() {
+
+  let cartQuantity=updateQuantity()
+  document.querySelector(".js-Checkout").innerHTML = cartQuantity;
+
+
   let cartSummaryHTML = "";
 
   cart.forEach((cartItem) => {
@@ -115,6 +120,9 @@ item-container js-order-summary js-cart-item-container  js-cart-item-container-$
       );
       container.remove();
       renderPaymentSummary();
+      let cartQuantity=updateQuantity()
+      document.querySelector(".js-Checkout").innerHTML = cartQuantity;
+
     });
   });
 
@@ -128,5 +136,17 @@ item-container js-order-summary js-cart-item-container  js-cart-item-container-$
       renderPaymentSummary();
     });
   });
+  
+
+  
+
 }
 
+export function updateQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((item) => {
+    cartQuantity += item.quantity;
+  });
+  return cartQuantity;
+  
+}

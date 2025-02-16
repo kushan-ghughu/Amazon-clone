@@ -2,6 +2,9 @@ import { cart } from "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
+import { updateQuantity } from "./orderSummary.js";
+
+
 
 export function renderPaymentSummary() {
   let productsPrice = 0;
@@ -15,6 +18,7 @@ export function renderPaymentSummary() {
   const totalBeforeTax = productsPrice + shippingPrice;
   const totalAfterTax = totalBeforeTax * 0.1;
   const total = totalBeforeTax + totalAfterTax;
+  //calculate the length
 
   const paymentSummaryHTML = `
     <div class="payment-summary-title">
@@ -22,7 +26,7 @@ export function renderPaymentSummary() {
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div class="js-items >Items ( ):</div>
             <div class="payment-summary-money">$${formatCurrency(productsPrice)}</div>
           </div>
 
@@ -51,4 +55,7 @@ export function renderPaymentSummary() {
   `;
 
   document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+  let cartQuantity=updateQuantity()
+  document.querySelector(".js-items").innerHTML = `Items (${cartQuantity}): `;
 }
+
